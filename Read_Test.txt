@@ -1,36 +1,36 @@
-Произведена установка CentOS 7; (CentOS-7-x86_64-Minimal-1804.iso)
-Обновлена система;
+РџСЂРѕРёР·РІРµРґРµРЅР° СѓСЃС‚Р°РЅРѕРІРєР° CentOS 7; (CentOS-7-x86_64-Minimal-1804.iso)
+РћР±РЅРѕРІР»РµРЅР° СЃРёСЃС‚РµРјР°;
 
 ---------------
-добавление репозитория для установки nginx, (файл /etc/yum.repos.d/nginx.repo)
-Установка nginx, запускаем, добавляем в автостарт
+РґРѕР±Р°РІР»РµРЅРёРµ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё nginx, (С„Р°Р№Р» /etc/yum.repos.d/nginx.repo)
+РЈСЃС‚Р°РЅРѕРІРєР° nginx, Р·Р°РїСѓСЃРєР°РµРј, РґРѕР±Р°РІР»СЏРµРј РІ Р°РІС‚РѕСЃС‚Р°СЂС‚
 
 #yum install nginx -y
 #systemctl start nginx
 #systemctl enable nginx
 
-правка правил фаервола...
+РїСЂР°РІРєР° РїСЂР°РІРёР» С„Р°РµСЂРІРѕР»Р°...
 #firewall-cmd --permanent --zone=public --add-service=http
 #firewall-cmd --zone=public --list-services
 #service firewalld status
 #service firewalld restart
 
-проверка - Ok! (http://192.168.1.50/)
-Настройка виртуальных хостов (файлы host1.conf, host2.conf)
-проверка - Ok! (http://h1.example.com/, http://h2.ex.com/)
+РїСЂРѕРІРµСЂРєР° - Ok! (http://192.168.1.50/)
+РќР°СЃС‚СЂРѕР№РєР° РІРёСЂС‚СѓР°Р»СЊРЅС‹С… С…РѕСЃС‚РѕРІ (С„Р°Р№Р»С‹ host1.conf, host2.conf)
+РїСЂРѕРІРµСЂРєР° - Ok! (http://h1.example.com/, http://h2.ex.com/)
 
 ---------------
-Установка PHP;
+РЈСЃС‚Р°РЅРѕРІРєР° PHP;
 
 #yum install php php-mysql php-fpm -y
 #systemctl start php-fpm
 #systemctl enable php-fpm
 
-Настройка nginx+PHP (правка файлов default.conf, host1.conf, host2.conf); 
-проверка - Ok! (http://192.168.1.50/info.php, http://h2.ex.com/info.php)
+РќР°СЃС‚СЂРѕР№РєР° nginx+PHP (РїСЂР°РІРєР° С„Р°Р№Р»РѕРІ default.conf, host1.conf, host2.conf); 
+РїСЂРѕРІРµСЂРєР° - Ok! (http://192.168.1.50/info.php, http://h2.ex.com/info.php)
 
 ---------------
-Установка, запуск МySQL (устанавливаем из репозитория МySQL-community);
+РЈСЃС‚Р°РЅРѕРІРєР°, Р·Р°РїСѓСЃРє РњySQL (СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РёР· СЂРµРїРѕР·РёС‚РѕСЂРёСЏ РњySQL-community);
 
 #wget https://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm
 #yum localinstall mysql80-community-release-el7-1.noarch.rpm
@@ -41,21 +41,21 @@
 #mysql --version
 mysql  Ver 8.0.13 for Linux on x86_64 (MySQL Community Server - GPL)
 
-подключение, замена пароля root
+РїРѕРґРєР»СЋС‡РµРЅРёРµ, Р·Р°РјРµРЅР° РїР°СЂРѕР»СЏ root
 #grep 'temporary password' /var/log/mysqld.log
 #mysql_secure_installation
 
-подключаемся к серверу
+РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє СЃРµСЂРІРµСЂСѓ
 #mysql -uroot -p
 
 ---------------
-Установка asterisk
+РЈСЃС‚Р°РЅРѕРІРєР° asterisk
 
-скачивание архива, распаковка...
+СЃРєР°С‡РёРІР°РЅРёРµ Р°СЂС…РёРІР°, СЂР°СЃРїР°РєРѕРІРєР°...
 #wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-13-current.tar.gz
 #tar -xvf asterisk-13-current.tar.gz 
 
-сборка, установка... (конфигурирование, установка зависимостей)
+СЃР±РѕСЂРєР°, СѓСЃС‚Р°РЅРѕРІРєР°... (РєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅРёРµ, СѓСЃС‚Р°РЅРѕРІРєР° Р·Р°РІРёСЃРёРјРѕСЃС‚РµР№)
 
 #cd asterisk-13*
 #contrib/scripts/install_prereq install
@@ -67,23 +67,23 @@ mysql  Ver 8.0.13 for Linux on x86_64 (MySQL Community Server - GPL)
 #make config
 #make samples
 
-запуск... (что то не так)
+Р·Р°РїСѓСЃРє... (С‡С‚Рѕ С‚Рѕ РЅРµ С‚Р°Рє)
 #service asterisk start
-#asterisk -vvvr (не запускается консоль)
+#asterisk -vvvr (РЅРµ Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ РєРѕРЅСЃРѕР»СЊ)
 
-Некоторое время идут "танцы с бубном" и чтение инета...
+РќРµРєРѕС‚РѕСЂРѕРµ РІСЂРµРјСЏ РёРґСѓС‚ "С‚Р°РЅС†С‹ СЃ Р±СѓР±РЅРѕРј" Рё С‡С‚РµРЅРёРµ РёРЅРµС‚Р°...
 
-отключение selinux (/etc/sysconfig/selinux устанавливаем значение SELINUX=disabled)
+РѕС‚РєР»СЋС‡РµРЅРёРµ selinux (/etc/sysconfig/selinux СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ SELINUX=disabled)
 #setenforce 0
 
-Перезапуск asterisk - работает
+РџРµСЂРµР·Р°РїСѓСЃРє asterisk - СЂР°Р±РѕС‚Р°РµС‚
 #systemctl restart asterisk
 #asterisk -vvvr
 
-настройка... (sip и dialplan - sip.conf, extensions.conf)
+РЅР°СЃС‚СЂРѕР№РєР°... (sip Рё dialplan - sip.conf, extensions.conf)
 
-регистрация софтфона - не получилось (что то не так...)
-правка правил фаервола...
+СЂРµРіРёСЃС‚СЂР°С†РёСЏ СЃРѕС„С‚С„РѕРЅР° - РЅРµ РїРѕР»СѓС‡РёР»РѕСЃСЊ (С‡С‚Рѕ С‚Рѕ РЅРµ С‚Р°Рє...)
+РїСЂР°РІРєР° РїСЂР°РІРёР» С„Р°РµСЂРІРѕР»Р°...
 
 #firewall-cmd --zone=public --list-services
 #firewall-cmd --permanent --new-service=asterisk
@@ -100,11 +100,11 @@ mysql  Ver 8.0.13 for Linux on x86_64 (MySQL Community Server - GPL)
 #systemctl restart asterisk
 #asterisk -rvvvv
 
-регистрация софтфона - Ok!
+СЂРµРіРёСЃС‚СЂР°С†РёСЏ СЃРѕС„С‚С„РѕРЅР° - Ok!
 
-совершаем тестовые звонки (Master.csv)
+СЃРѕРІРµСЂС€Р°РµРј С‚РµСЃС‚РѕРІС‹Рµ Р·РІРѕРЅРєРё (Master.csv)
 ------------------------------
-регистрация на GitHub
-написание отчета
-копирование файлов конфигураций
-commit и push на GitHub.
+СЂРµРіРёСЃС‚СЂР°С†РёСЏ РЅР° GitHub
+РЅР°РїРёСЃР°РЅРёРµ РѕС‚С‡РµС‚Р°
+РєРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ РєРѕРЅС„РёРіСѓСЂР°С†РёР№
+commit Рё push РЅР° GitHub.
