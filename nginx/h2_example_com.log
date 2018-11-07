@@ -1,0 +1,6 @@
+192.168.1.10 - - [07/Nov/2018:09:39:42 +0200] "GET / HTTP/1.1" 200 633 "-" "Mozilla/5.0 (Windows NT 6.1; rv:63.0) Gecko/20100101 Firefox/63.0"
+192.168.1.10 - - [07/Nov/2018:09:39:42 +0200] "GET /favicon.ico HTTP/1.1" 404 162 "-" "Mozilla/5.0 (Windows NT 6.1; rv:63.0) Gecko/20100101 Firefox/63.0"
+192.168.1.10 - - [07/Nov/2018:09:39:59 +0200] "GET /info.php HTTP/1.1" 200 44050 "-" "Mozilla/5.0 (Windows NT 6.1; rv:63.0) Gecko/20100101 Firefox/63.0"
+192.168.1.10 - - [07/Nov/2018:09:39:59 +0200] "GET /info.php?=PHPE9568F34-D428-11d2-A769-00AA001ACF42 HTTP/1.1" 200 2536 "http://h2.ex.com/info.php" "Mozilla/5.0 (Windows NT 6.1; rv:63.0) Gecko/20100101 Firefox/63.0"
+192.168.1.10 - - [07/Nov/2018:09:39:59 +0200] "GET /info.php?=PHPE9568F35-D428-11d2-A769-00AA001ACF42 HTTP/1.1" 200 2158 "http://h2.ex.com/info.php" "Mozilla/5.0 (Windows NT 6.1; rv:63.0) Gecko/20100101 Firefox/63.0"
+192.168.1.10 - - [07/Nov/2018:09:39:59 +0200] "GET /favicon.ico HTTP/1.1" 404 162 "-" "Mozilla/5.0 (Windows NT 6.1; rv:63.0) Gecko/20100101 Firefox/63.0"

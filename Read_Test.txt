@@ -1,0 +1,110 @@
+Произведена установка CentOS 7; (CentOS-7-x86_64-Minimal-1804.iso)
+Обновлена система;
+
+---------------
+добавление репозитория для установки nginx, (файл /etc/yum.repos.d/nginx.repo)
+Установка nginx, запускаем, добавляем в автостарт
+
+#yum install nginx -y
+#systemctl start nginx
+#systemctl enable nginx
+
+правка правил фаервола...
+#firewall-cmd --permanent --zone=public --add-service=http
+#firewall-cmd --zone=public --list-services
+#service firewalld status
+#service firewalld restart
+
+проверка - Ok! (http://192.168.1.50/)
+Настройка виртуальных хостов (файлы host1.conf, host2.conf)
+проверка - Ok! (http://h1.example.com/, http://h2.ex.com/)
+
+---------------
+Установка PHP;
+
+#yum install php php-mysql php-fpm -y
+#systemctl start php-fpm
+#systemctl enable php-fpm
+
+Настройка nginx+PHP (правка файлов default.conf, host1.conf, host2.conf); 
+проверка - Ok! (http://192.168.1.50/info.php, http://h2.ex.com/info.php)
+
+---------------
+Установка, запуск МySQL (устанавливаем из репозитория МySQL-community);
+
+#wget https://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm
+#yum localinstall mysql80-community-release-el7-1.noarch.rpm
+#yum install mysql-community-server
+#systemctl enable mysqld
+#systemctl start mysqld
+#service mysqld status
+#mysql --version
+mysql  Ver 8.0.13 for Linux on x86_64 (MySQL Community Server - GPL)
+
+подключение, замена пароля root
+#grep 'temporary password' /var/log/mysqld.log
+#mysql_secure_installation
+
+подключаемся к серверу
+#mysql -uroot -p
+
+---------------
+Установка asterisk
+
+скачивание архива, распаковка...
+#wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-13-current.tar.gz
+#tar -xvf asterisk-13-current.tar.gz 
+
+сборка, установка... (конфигурирование, установка зависимостей)
+
+#cd asterisk-13*
+#contrib/scripts/install_prereq install
+#./configure --libdir=/usr/lib64
+#make menuselect
+#contrib/scripts/get_mp3_source.sh
+#make
+#make install
+#make config
+#make samples
+
+запуск... (что то не так)
+#service asterisk start
+#asterisk -vvvr (не запускается консоль)
+
+Некоторое время идут "танцы с бубном" и чтение инета...
+
+отключение selinux (/etc/sysconfig/selinux устанавливаем значение SELINUX=disabled)
+#setenforce 0
+
+Перезапуск asterisk - работает
+#systemctl restart asterisk
+#asterisk -vvvr
+
+настройка... (sip и dialplan - sip.conf, extensions.conf)
+
+регистрация софтфона - не получилось (что то не так...)
+правка правил фаервола...
+
+#firewall-cmd --zone=public --list-services
+#firewall-cmd --permanent --new-service=asterisk
+#firewall-cmd --permanent --service=asterisk --add-port=5060/tcp
+#firewall-cmd --permanent --service=asterisk --add-port=5060/udp
+#firewall-cmd --permanent --service=asterisk --add-port=5061/tcp
+#firewall-cmd --permanent --service=asterisk --add-port=5061/udp
+#firewall-cmd --permanent --service=asterisk --add-port=4569/udp
+#firewall-cmd --permanent --service=asterisk --add-port=5038/tcp
+#firewall-cmd --permanent --service=asterisk --add-port=10000-20000/udp
+#firewall-cmd --permanent --add-service=asterisk
+#firewall-cmd --reload
+#firewall-cmd --zone=public --list-services
+#systemctl restart asterisk
+#asterisk -rvvvv
+
+регистрация софтфона - Ok!
+
+совершаем тестовые звонки (Master.csv)
+------------------------------
+регистрация на GitHub
+написание отчета
+копирование файлов конфигураций
+commit и push на GitHub.
